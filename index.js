@@ -1,8 +1,11 @@
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
 const routes = require('express-mount-routes');
 
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 routes(app, path.join(__dirname, 'controllers'), { autoPlural: false });
 
 if (module.parent) {

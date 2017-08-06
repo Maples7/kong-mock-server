@@ -2,8 +2,8 @@ const _ = require('lodash');
 const uuidv4 = require('uuid/v4');
 const db = require('../lib/db');
 
-const TYPE = 'consumers';
-const FIELDS = ['username', 'custom_id'];
+const TYPE = 'certificates';
+const FIELDS = ['cert', 'key', 'snis'];
 
 module.exports = {
   '/': {
@@ -19,7 +19,7 @@ module.exports = {
         })
       ),
     post: (req, res, next) => {
-      if (!(req.body.username || req.body.custom_id)) {
+      if (!req.body.cert || !req.body.key) {
         return res.status(400).json({
           message: 'Missing some param(s)'
         });
@@ -28,6 +28,7 @@ module.exports = {
       obj.created_at = Date.now();
       obj.type = TYPE;
       obj.id = uuidv4();
+      if (obj.snis && _.isString(obj.snis)) obj.snis = obj.snis.split(',');
 
       return db.insertAsync(obj).then(newDoc => {
         delete newDoc._id;
@@ -39,10 +40,13 @@ module.exports = {
     patch: (req, res, next) => {
       const id = req.params.id;
       let obj = _.pick(req.body, FIELDS);
-      return db.updateAsync({ id, type: TYPE }, { $set: obj }).then(numReplaced => {
-        if (numReplaced > 0) return res.sendStatus(200);
-        else return res.sendStatus(400);
-      });
+      if (obj.snis && _.isString(obj.snis)) obj.snis = obj.snis.split(',');
+      return db
+        .updateAsync({ id, type: TYPE }, { $set: obj })
+        .then(numReplaced => {
+          if (numReplaced > 0) return res.sendStatus(200);
+          else return res.sendStatus(400);
+        });
     },
     delete: (req, res, next) => {
       const id = req.params.id;
