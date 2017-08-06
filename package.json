@@ -1,0 +1,35 @@
+{
+  "name": "kong-mock-server",
+  "version": "1.0.0",
+  "description": "A mock server who behaves the same way as Kong's Admin APIs",
+  "main": "index.js",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "express-mount-routes": "^1.2.0",
+    "lodash": "^4.17.4",
+    "nedb": "^1.8.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index",
+    "dev": "supervisor index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maples7/kong-mock-server.git"
+  },
+  "keywords": [
+    "Kong",
+    "Mock Server"
+  ],
+  "author": "Maples7 <maples7.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Maples7/kong-mock-server/issues"
+  },
+  "homepage": "https://github.com/Maples7/kong-mock-server#readme"
+}
