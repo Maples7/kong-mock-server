@@ -118,7 +118,7 @@ module.exports = {
       const pluginId = req.params.plugin_id;
       const obj = _.pick(req.body, ['name', 'consumer_id', 'config', 'enable']);
       return db
-        .update({ id: pluginId, api_id: apiId, type: 'plugins' }, { $set: obj })
+        .updateAsync({ id: pluginId, api_id: apiId, type: 'plugins' }, { $set: obj })
         .then(numReplaced => {
           if (numReplaced > 0) return res.sendStatus(200);
           else return res.sendStatus(400);
