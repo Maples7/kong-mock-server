@@ -62,7 +62,7 @@ module.exports = {
   '/:upstream_id/targets': {
     get: (req, res, next) => {
       const upstreamId = req.params.upstream_id;
-      return db.findAsync({ type: TYPE, upstream_id: upstreamId }).then(docs =>
+      return db.findAsync({ type: 'targets', upstream_id: upstreamId }).then(docs =>
         res.json({
           total: docs.length,
           data: docs.map(doc => {
@@ -97,7 +97,7 @@ module.exports = {
       const upstreamId = req.params.upstream_id;
       const targetId = req.params.target_id;
       return db
-        .remove({ id: targetId, upstream_id: upstreamId, type: TYPE })
+        .remove({ id: targetId, upstream_id: upstreamId, type: 'targets' })
         .then(numRemoved => {
           if (numRemoved > 0) return res.sendStatus(200);
           else return res.sendStatus(400);
