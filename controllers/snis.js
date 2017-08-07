@@ -39,7 +39,7 @@ module.exports = {
       const name = req.params.name;
       let obj = _.pick(req.body, FIELDS);
       return db
-        .update({ name, type: TYPE }, { $set: obj })
+        .updateAsync({ name, type: TYPE }, { $set: obj })
         .then(numReplaced => {
           if (numReplaced > 0) return res.sendStatus(200);
           else return res.sendStatus(400);

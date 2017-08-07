@@ -97,7 +97,7 @@ module.exports = {
       const upstreamId = req.params.upstream_id;
       const targetId = req.params.target_id;
       return db
-        .remove({ id: targetId, upstream_id: upstreamId, type: 'targets' })
+        .removeAsync({ id: targetId, upstream_id: upstreamId, type: 'targets' })
         .then(numRemoved => {
           if (numRemoved > 0) return res.sendStatus(200);
           else return res.sendStatus(400);
