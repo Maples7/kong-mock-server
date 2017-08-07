@@ -36,6 +36,15 @@ module.exports = {
     }
   },
   '/:id': {
+    get: (req, res, next) => {
+      const id = req.params.id;
+      return db.findAsync({ id, type: TYPE }).then(docs => {
+        const ret = docs[0];
+        delete ret._id;
+        delete ret.type;
+        return res.json(ret);
+      });
+    },
     patch: (req, res, next) => {
       const id = req.params.id;
       const obj = _.pick(req.body, ['name', 'consumer_id', 'config', 'enable']);
