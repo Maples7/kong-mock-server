@@ -1,5 +1,11 @@
 # kong-mock-server
-It's a mock server who behaves the same way as [Kong's Admin APIs](https://getkong.org/docs/0.10.x/admin-api/). It's originally intended to test npm package [`kong-config-manager`](git@github.com:Maples7/kong-mock-server.git).
+
+[![npm version](https://badge.fury.io/js/kong-mock-server.svg)](https://badge.fury.io/js/kong-mock-server) 
+
+[![NPM](https://nodei.co/npm/kong-mock-server.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/kong-mock-server/)
+[![NPM](https://nodei.co/npm-dl/kong-mock-server.png?months=6&height=3)](https://nodei.co/npm/kong-mock-server/)
+
+It's a mock server who behaves the same way as [Kong's Admin APIs](https://getkong.org/docs/0.10.x/admin-api/). It's originally intended to test npm package [`kong-mock-server`](git@github.com:Maples7/kong-mock-server.git).
 
 **NOTE**: 
 
@@ -25,7 +31,7 @@ The good thing of this way is you can start up the mock server via `node kong-mo
 
 There are some initial data we could insert into nedb for you in this way (see `./init-data`). If you need them, add `INIT_DATA=true` before `node <app>` command just like `NODE_ENV=production`.
 
-You are welcome to see [kong-config-manager](https://github.com/Maples7/kong-config-manager) for an example usage case of this way.
+You are welcome to see [kong-mock-server](https://github.com/Maples7/kong-mock-server) for an example usage case of this way.
 
 ### As a npm package
 
@@ -41,7 +47,7 @@ This project mocks version **0.10.x** of Kong, any other versions are NOT guaran
 
 ## Relatives
 
-- [kong-config-manager](https://github.com/Maples7/kong-config-manager)
+- [kong-mock-server](https://github.com/Maples7/kong-mock-server)
 
 ## License
 [GPLv3](LICENSE)
