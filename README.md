@@ -5,7 +5,7 @@
 [![NPM](https://nodei.co/npm/kong-mock-server.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/kong-mock-server/)
 [![NPM](https://nodei.co/npm-dl/kong-mock-server.png?months=6&height=3)](https://nodei.co/npm/kong-mock-server/)
 
-It's a mock server who behaves the same way as [Kong's Admin APIs](https://getkong.org/docs/0.10.x/admin-api/). It's originally intended to test npm package [`kong-mock-server`](git@github.com:Maples7/kong-mock-server.git).
+It's a mock server who behaves the same way as [Kong's Admin APIs](https://getkong.org/docs/0.10.x/admin-api/). It's originally intended to test npm package [`kong-config-manager`](https://github.com/Maples7/kong-config-manager).
 
 **NOTE**: 
 
@@ -47,7 +47,7 @@ This project mocks version **0.10.x** of Kong, any other versions are NOT guaran
 
 ## Relatives
 
-- [kong-mock-server](https://github.com/Maples7/kong-mock-server)
+- [kong-config-manager](https://github.com/Maples7/kong-config-manager)
 
 ## License
 [GPLv3](LICENSE)
