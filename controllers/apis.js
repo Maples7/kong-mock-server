@@ -86,7 +86,7 @@ module.exports = {
     delete: (req, res, next) => {
       const id = req.params.id;
       return db.removeAsync({ id, type: TYPE }).then(numRemoved => {
-        if (numRemoved > 0) return res.sendStatus(200);
+        if (numRemoved > 0) return res.sendStatus(204);
         else return res.sendStatus(400);
       });
     }
@@ -130,7 +130,7 @@ module.exports = {
       return db
         .removeAsync({ id: pluginId, api_id: apiId, type: 'plugins' })
         .then(numRemoved => {
-          if (numRemoved > 0) return res.sendStatus(200);
+          if (numRemoved > 0) return res.sendStatus(204);
           else return res.sendStatus(400);
         });
     }
