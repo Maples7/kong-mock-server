@@ -13,9 +13,7 @@ It's a mock server who behaves the same way as [Kong's Admin APIs](https://getko
 
 2. Not all Admin APIs are mocked for now. Basically, APIs like GET all items and POST, PATCH or DELETE a item are supported. If you want more, please try to fork this repo and raise your PRs.
 
-3. Use `id` as identify field for all APIs. If there is NO `id`, then try to use `name` field.
-
-4. The database instance of nedb here **ONLY** uses memory, so it can **NOT** persist your data. In other words, after the server stopped, all data would be flushed.
+3. The database instance of nedb here **ONLY** uses memory, so it can **NOT** persist your data. In other words, after the server stopped, all data would be flushed.
 
 ## Usage
 

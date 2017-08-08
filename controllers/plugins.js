@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const uuidv4 = require('uuid/v4');
 const db = require('../lib/db');
@@ -38,18 +40,23 @@ module.exports = {
   '/:id': {
     get: (req, res, next) => {
       const id = req.params.id;
-      return db.findAsync({ id, type: TYPE }).then(docs => {
-        const ret = docs[0];
-        delete ret._id;
-        delete ret.type;
-        return res.json(ret);
-      });
+      return db
+        .findAsync({ $or: [{ id: id }, { name: id }], type: TYPE })
+        .then(docs => {
+          const ret = docs[0];
+          delete ret._id;
+          delete ret.type;
+          return res.json(ret);
+        });
     },
     patch: (req, res, next) => {
       const id = req.params.id;
       const obj = _.pick(req.body, ['name', 'consumer_id', 'config', 'enable']);
       return db
-        .updateAsync({ id, type: TYPE }, { $set: obj })
+        .updateAsync(
+          { $or: [{ id: id }, { name: id }], type: TYPE },
+          { $set: obj }
+        )
         .then(numReplaced => {
           if (numReplaced > 0) return res.sendStatus(200);
           else return res.sendStatus(400);
@@ -57,10 +64,12 @@ module.exports = {
     },
     delete: (req, res, next) => {
       const id = req.params.id;
-      return db.removeAsync({ id, type: TYPE }).then(numRemoved => {
-        if (numRemoved > 0) return res.sendStatus(204);
-        else return res.sendStatus(400);
-      });
+      return db
+        .removeAsync({ $or: [{ id: id }, { name: id }], type: TYPE })
+        .then(numRemoved => {
+          if (numRemoved > 0) return res.sendStatus(204);
+          else return res.sendStatus(400);
+        });
     }
   }
 };
