@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const uuidv4 = require('uuid/v4');
 const db = require('../lib/db');
@@ -39,10 +41,12 @@ module.exports = {
     patch: (req, res, next) => {
       const id = req.params.id;
       let obj = _.pick(req.body, FIELDS);
-      return db.updateAsync({ id, type: TYPE }, { $set: obj }).then(numReplaced => {
-        if (numReplaced > 0) return res.sendStatus(200);
-        else return res.sendStatus(400);
-      });
+      return db
+        .updateAsync({ id, type: TYPE }, { $set: obj })
+        .then(numReplaced => {
+          if (numReplaced > 0) return res.sendStatus(200);
+          else return res.sendStatus(400);
+        });
     },
     delete: (req, res, next) => {
       const id = req.params.id;

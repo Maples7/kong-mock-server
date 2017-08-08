@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const uuidv4 = require('uuid/v4');
 const db = require('../lib/db');

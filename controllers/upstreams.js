@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const uuidv4 = require('uuid/v4');
 const db = require('../lib/db');
@@ -46,32 +48,41 @@ module.exports = {
       if (obj.orderlist && _.isString(obj.orderlist)) {
         obj.orderlist = obj.orderlist.split(',');
       }
-      return db.updateAsync({ id, type: TYPE }, { $set: obj }).then(numReplaced => {
-        if (numReplaced > 0) return res.sendStatus(200);
-        else return res.sendStatus(400);
-      });
+      return db
+        .updateAsync(
+          { $or: [{ id: id }, { name: id }], type: TYPE },
+          { $set: obj }
+        )
+        .then(numReplaced => {
+          if (numReplaced > 0) return res.sendStatus(200);
+          else return res.sendStatus(400);
+        });
     },
     delete: (req, res, next) => {
       const id = req.params.id;
-      return db.removeAsync({ id, type: TYPE }).then(numRemoved => {
-        if (numRemoved > 0) return res.sendStatus(204);
-        else return res.sendStatus(400);
-      });
+      return db
+        .removeAsync({ $or: [{ id: id }, { name: id }], type: TYPE })
+        .then(numRemoved => {
+          if (numRemoved > 0) return res.sendStatus(204);
+          else return res.sendStatus(400);
+        });
     }
   },
   '/:upstream_id/targets': {
     get: (req, res, next) => {
       const upstreamId = req.params.upstream_id;
-      return db.findAsync({ type: 'targets', upstream_id: upstreamId }).then(docs =>
-        res.json({
-          total: docs.length,
-          data: docs.map(doc => {
-            delete doc._id;
-            delete doc.type;
-            return doc;
+      return db
+        .findAsync({ type: 'targets', upstream_id: upstreamId })
+        .then(docs =>
+          res.json({
+            total: docs.length,
+            data: docs.map(doc => {
+              delete doc._id;
+              delete doc.type;
+              return doc;
+            })
           })
-        })
-      );
+        );
     },
     post: (req, res, next) => {
       const upstreamId = req.params.upstream_id;

@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require('lodash');
 const uuidv4 = require('uuid/v4');
 const db = require('../lib/db');
@@ -77,7 +79,10 @@ module.exports = {
           obj[field] = obj[field].split(',');
       });
       return db
-        .updateAsync({ id, type: TYPE }, { $set: obj })
+        .updateAsync(
+          { $or: [{ id: id }, { name: id }], type: TYPE },
+          { $set: obj }
+        )
         .then(numReplaced => {
           if (numReplaced > 0) return res.sendStatus(200);
           else return res.sendStatus(400);
@@ -85,10 +90,12 @@ module.exports = {
     },
     delete: (req, res, next) => {
       const id = req.params.id;
-      return db.removeAsync({ id, type: TYPE }).then(numRemoved => {
-        if (numRemoved > 0) return res.sendStatus(204);
-        else return res.sendStatus(400);
-      });
+      return db
+        .removeAsync({ $or: [{ id: id }, { name: id }], type: TYPE })
+        .then(numRemoved => {
+          if (numRemoved > 0) return res.sendStatus(204);
+          else return res.sendStatus(400);
+        });
     }
   },
   '/:api_id/plugins/': {
@@ -118,7 +125,14 @@ module.exports = {
       const pluginId = req.params.plugin_id;
       const obj = _.pick(req.body, ['name', 'consumer_id', 'config', 'enable']);
       return db
-        .updateAsync({ id: pluginId, api_id: apiId, type: 'plugins' }, { $set: obj })
+        .updateAsync(
+          {
+            $or: [{ id: pluginId }, { name: pluginId }],
+            api_id: apiId,
+            type: 'plugins'
+          },
+          { $set: obj }
+        )
         .then(numReplaced => {
           if (numReplaced > 0) return res.sendStatus(200);
           else return res.sendStatus(400);
@@ -128,7 +142,11 @@ module.exports = {
       const apiId = req.params.api_id;
       const pluginId = req.params.plugin_id;
       return db
-        .removeAsync({ id: pluginId, api_id: apiId, type: 'plugins' })
+        .removeAsync({
+          $or: [{ id: pluginId }, { name: pluginId }],
+          api_id: apiId,
+          type: 'plugins'
+        })
         .then(numRemoved => {
           if (numRemoved > 0) return res.sendStatus(204);
           else return res.sendStatus(400);
