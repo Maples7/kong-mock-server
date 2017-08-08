@@ -70,19 +70,22 @@ module.exports = {
   },
   '/:upstream_id/targets': {
     get: (req, res, next) => {
-      const upstreamId = req.params.upstream_id;
-      return db
-        .findAsync({ type: 'targets', upstream_id: upstreamId })
-        .then(docs =>
-          res.json({
-            total: docs.length,
-            data: docs.map(doc => {
-              delete doc._id;
-              delete doc.type;
-              return doc;
+      let upstreamId = req.params.upstream_id;
+      return db.findAsync({ type: TYPE, name: upstreamId }).then(docs => {
+        if (docs.length > 0) upstreamId = docs[0].id;
+        return db
+          .findAsync({ type: 'targets', upstream_id: upstreamId })
+          .then(docs =>
+            res.json({
+              total: docs.length,
+              data: docs.map(doc => {
+                delete doc._id;
+                delete doc.type;
+                return doc;
+              })
             })
-          })
-        );
+          );
+      });
     },
     post: (req, res, next) => {
       const upstreamId = req.params.upstream_id;
@@ -105,14 +108,21 @@ module.exports = {
   },
   '/:upstream_id/targets/:target_id': {
     delete: (req, res, next) => {
-      const upstreamId = req.params.upstream_id;
+      let upstreamId = req.params.upstream_id;
       const targetId = req.params.target_id;
-      return db
-        .removeAsync({ id: targetId, upstream_id: upstreamId, type: 'targets' })
-        .then(numRemoved => {
-          if (numRemoved > 0) return res.sendStatus(204);
-          else return res.sendStatus(400);
-        });
+      return db.findAsync({ type: TYPE, name: upstreamId }).then(docs => {
+        if (docs.length > 0) upstreamId = docs[0].id;
+        return db
+          .removeAsync({
+            id: targetId,
+            upstream_id: upstreamId,
+            type: 'targets'
+          })
+          .then(numRemoved => {
+            if (numRemoved > 0) return res.sendStatus(204);
+            else return res.sendStatus(400);
+          });
+      });
     }
   }
 };
