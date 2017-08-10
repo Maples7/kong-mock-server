@@ -29,7 +29,7 @@ The good thing of this way is you can start up the mock server via `node kong-mo
 
 There are some initial data we could insert into nedb for you in this way (see `./init-data`). If you need them, add `INIT_DATA=true` before `node <app>` command just like `NODE_ENV=production`.
 
-You are welcome to see [kong-mock-server](https://github.com/Maples7/kong-mock-server) for an example usage case of this way.
+You are welcome to see [kong-config-manager](https://github.com/Maples7/kong-config-manager) for an example usage case of this way.
 
 ### As a npm package
 
