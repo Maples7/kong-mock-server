@@ -13,7 +13,7 @@ It's a mock server who behaves the same way as [Kong's Admin APIs](https://getko
 
 2. Not all Admin APIs are mocked for now. Basically, APIs like GET all items and POST, PATCH or DELETE a item are supported. If you want more, please try to fork this repo and raise your PRs.
 
-3. The database instance of nedb here **ONLY** uses memory, so it can **NOT** persist your data. In other words, after the server stopped, all data would be flushed.
+3. The database instance of [nedb](https://github.com/louischatriot/nedb) here **ONLY** uses memory, so it can **NOT** persist your data. In other words, after the server stopped, all data would be flushed.
 
 ## Usage
 
@@ -27,7 +27,7 @@ Then, run `git submodule add git@github.com:Maples7/kong-mock-server.git` to add
 
 The good thing of this way is you can start up the mock server via `node kong-mock-server/index` totally independently with listening on port 3001. Watch out the thread stuff.
 
-There are some initial data we could insert into nedb for you in this way (see `./init-data`). If you need them, add `INIT_DATA=true` before `node <app>` command just like `NODE_ENV=production`.
+There are some initial data we could insert into nedb for you in this way (see `./init-data`). If you need them, add `INIT_DATA=true` before `node <app>` command just like `NODE_ENV=production` or use `npm start`.
 
 You are welcome to see [kong-config-manager](https://github.com/Maples7/kong-config-manager) for an example usage case of this way.
 
@@ -48,4 +48,5 @@ This project mocks version **0.10.x** of Kong, any other versions are NOT guaran
 - [kong-config-manager](https://github.com/Maples7/kong-config-manager)
 
 ## License
+
 [GPLv3](LICENSE)
