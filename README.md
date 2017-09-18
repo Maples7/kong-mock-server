@@ -41,7 +41,7 @@ Use `npm i kong-mock-server --save-dev` to install it as a developing dependence
 
 ## About Version
 
-This project mocks version **0.10.x** of Kong, any other versions are NOT guaranteed. Theoretically, once the Admin APIs of Kong remain unchanged, it would work well. But again, nothing is determined for sure.
+This project mocks version **0.10.x** and **0.11.x**([`cluster` endpoint disappears](https://github.com/Mashape/kong/blob/master/CHANGELOG.md#admin-api)) of Kong (Although, API `/` always returns `200 - { version: '0.11.0' }`), any other versions are NOT guaranteed. Theoretically, once the Admin APIs of Kong remain unchanged, it would work well. But again, nothing is determined for sure.
 
 ## Relatives
 
