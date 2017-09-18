@@ -10,6 +10,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 routes(app, path.join(__dirname, 'controllers'), { autoPlural: false });
+app.get('/', (req, res, next) =>
+  res.json({
+    version: '0.11.0'
+  })
+);
 
 if (module.parent) {
   app.nedb = db;
