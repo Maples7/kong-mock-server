@@ -66,6 +66,7 @@ module.exports = {
 
       return db.insertAsync(obj).then(newDoc => {
         delete newDoc._id;
+        delete newDoc.type;
         res.status(201).json(newDoc);
       });
     }
@@ -115,6 +116,7 @@ module.exports = {
 
       return db.insertAsync(obj).then(newDoc => {
         delete newDoc._id;
+        delete newDoc.type;
         res.status(201).json(newDoc);
       });
     }
