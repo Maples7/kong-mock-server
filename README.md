@@ -33,7 +33,7 @@ You are welcome to see [kong-config-manager](https://github.com/Maples7/kong-con
 
 ### As a npm package
 
-In this way, the package would export an [Express](http://expressjs.com/) instance created by `const app = require('express')()`. So if you use some test framework like [ava](https://github.com/avajs/ava), you no longer need to start up a independent server but just use the exported `app` to achieve your request and response stuff.
+In this way, the package would export an [Express](http://expressjs.com/) instance created by `const app = require('express')()`. So if you use some test framework like [ava](https://github.com/avajs/ava), you no longer need to start up an independent server but just use the exported `app` to achieve your request and response stuff.
 
 The exported `app` has a property `nedb`, created by `Promise.promisifyAll(new Datastore())`. See [Promise.promisifyAll](http://bluebirdjs.com/docs/api/promise.promisifyall.html) for more information about `promisifyAll` and usage of promisified APIs.
 
