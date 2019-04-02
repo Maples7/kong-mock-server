@@ -26,7 +26,7 @@ if (module.parent) {
   const PORT = 3001;
   http.createServer(app).listen(PORT, () => {
     console.log(
-      `Mock Server of Kong Admin APIs has been started and listening on port ${PORT}`
+      `[HTTP] Mock Server of Kong Admin APIs has been started and listening on port ${PORT}`
     );
     if (process.env.INIT_DATA === 'true') {
       const initData = require('./init-data');
@@ -41,7 +41,7 @@ if (module.parent) {
   };
   https.createServer(secureOptions, app).listen(SEC_PORT, function() {
     console.log(
-      `Mock Server of Kong Admin APIs has been started and listening on port ${SEC_PORT}`
+      `[HTTPS] Mock Server of Kong Admin APIs has been started and listening on port ${SEC_PORT}`
     );
   });
 }
