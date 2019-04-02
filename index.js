@@ -24,7 +24,7 @@ if (module.parent) {
   module.exports = app;
 } else {
   const PORT = 3001;
-  var server = http.createServer(app).listen(PORT, () => {
+  http.createServer(app).listen(PORT, () => {
     console.log(
       `Mock Server of Kong Admin APIs has been started and listening on port ${PORT}`
     );
@@ -33,12 +33,13 @@ if (module.parent) {
       Object.keys(initData).forEach(obj => db.insertAsync(initData[obj]));
     }
   });
+
   const SEC_PORT = 3443;
   const secureOptions = {
-      key: fs.readFileSync(require.resolve('./ssl/server.key')),
-      cert: fs.readFileSync(require.resolve('./ssl/server.cert'))
+    key: fs.readFileSync(require.resolve('./ssl/server.key')),
+    cert: fs.readFileSync(require.resolve('./ssl/server.cert'))
   };
-  var secureServer = https.createServer(secureOptions, app).listen(SEC_PORT, function(){
+  https.createServer(secureOptions, app).listen(SEC_PORT, function() {
     console.log(
       `Mock Server of Kong Admin APIs has been started and listening on port ${SEC_PORT}`
     );
